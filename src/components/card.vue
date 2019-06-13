@@ -3,10 +3,10 @@
     <div class="card" style="width: 18rem;">
         <img v-bind:src="pokemon.sprites.front_default" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title">{{ pokemon.name }}</h5>
+        <h4 class="card-title">{{ pokemon.name }}</h4>
         <p class="card-text"> 
-            <p>Height: {{pokemon.weight}} lbs</p>
-            <p>Weight: {{pokemon.height}} inches</p>
+            <p>Height: {{pokemon.height}} inches</p>
+            <p>Weight: {{pokemon.weight}} units</p>
           
         </p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
@@ -20,11 +20,11 @@
     name: 'card',
     data: function() {
         return {
-        pokemon: null
+        pokemon: ""
         }
     },
     props: {
-        msg: String
+        url: String
     },
     mounted: function(){
         console.log("mounted function ran");
@@ -32,11 +32,11 @@
         const vm = this;
         axios({
         method: 'get',
-        url: 'https://pokeapi.co/api/v2/pokemon/chikorita',
+        url: vm.url,
         responseType: 'stream'
         })
         .then(function (response) {
-            console.log(response.data);
+            //console.log(response.data);
             vm.pokemon = response.data
 
         });

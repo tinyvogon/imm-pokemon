@@ -2,7 +2,8 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Hewwo thewe"/>
-    <card></card>
+    <card :url="item.pokemon.url" v-for="item in pokemonOfRockType" :key="item"></card>
+    
   </div>
 </template>
 
@@ -15,7 +16,26 @@ export default {
   components: {
     HelloWorld,
     card
-  }
+  },
+  data: function() {
+    return {
+        pokemonOfRockType: ""
+        }
+  },
+  mounted: function(){
+      console.log("mounted function ran");
+      const axios = require('axios');
+      const vm = this;
+      axios({
+        method: 'get',
+        url: 'https://pokeapi.co/api/v2/type/rock',
+        responseType: 'stream'
+        })
+      .then(function (response) {
+        //console.log(response.data.pokemon);
+        vm.pokemonOfRockType = response.data.pokemon
+        });
+  }  
 }
 </script>
 
